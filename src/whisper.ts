@@ -32,6 +32,8 @@ export class Whisper {
     textAlign: "left",
     id: null,
     type: "ordinary",
+    backgroundColor: "#ededed",
+    textColor: "#000000",
   };
   /**
    * @private
@@ -52,18 +54,18 @@ export class Whisper {
    */
   #createwhisper(message: string): HTMLElement | void {
     if (!message.trim()) throw new Error("whisper cannot be empty");
-
     const whisper = document.createElement("section") as HTMLElement;
     if (this.#options.id) whisper.classList.add(this.#options.id);
     whisper.innerHTML = `
     <span style="height:100%;display:flex;align-items:center;">
      ${this.#options.type !== "ordinary" ? icon[this.#options.type!] : ""}
     </span>
-     <p style="text-align:${
-       this.#options.textAlign
-     }; width:100%;word-break:break-all;">${message}</p> `;
+     <p style="text-align:${this.#options.textAlign}; color:${
+      this.#options.textColor
+    }; width:100%;word-break:break-all;">${message}</p> `;
     whisper.classList.add(Whisper.POSITION_CLASSES[this.#options.position!]);
     whisper.style.cssText = Whisper.POSITION_STYLES[this.#options.position!];
+    whisper.style.backgroundColor = this.#options.backgroundColor!;
     document.body.prepend(whisper);
     this.#adjustWhisperPosition();
     setTimeout(() => {
