@@ -3,11 +3,13 @@ type duration = number | "infinite";
 type type = "ordinary" | "success" | "error" | "warning" | "loading";
 
 interface WhisperOptions {
-    duration?: duration;
-    position?: position;
-    textAlign?: "left" | "center" | "right";
-    id?: string | null;
-    type?: type;
+    duration: duration;
+    position: position;
+    textAlign: "left" | "center" | "right";
+    id: string | null;
+    type: type;
+    backgroundColor: string;
+    textColor: string;
 }
 
 declare class Whisper {

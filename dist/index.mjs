@@ -49,7 +49,9 @@ var Whisper = class _Whisper {
     position: "top-center",
     textAlign: "left",
     id: null,
-    type: "ordinary"
+    type: "ordinary",
+    backgroundColor: "#ededed",
+    textColor: "#000000"
   };
   /**
    * @private
@@ -75,9 +77,10 @@ var Whisper = class _Whisper {
     <span style="height:100%;display:flex;align-items:center;">
      ${this.#options.type !== "ordinary" ? icon_default[this.#options.type] : ""}
     </span>
-     <p style="text-align:${this.#options.textAlign}; width:100%;word-break:break-all;">${message}</p> `;
+     <p style="text-align:${this.#options.textAlign}; color:${this.#options.textColor}; width:100%;word-break:break-all;">${message}</p> `;
     whisper2.classList.add(_Whisper.POSITION_CLASSES[this.#options.position]);
     whisper2.style.cssText = _Whisper.POSITION_STYLES[this.#options.position];
+    whisper2.style.backgroundColor = this.#options.backgroundColor;
     document.body.prepend(whisper2);
     this.#adjustWhisperPosition();
     setTimeout(() => {
