@@ -41,8 +41,8 @@ declare class Whisper {
  * Creates a new whisper.
  * @param {string} [message] - The message to display in the whisper.
  * @param {whisperOptions} [options] - The options for the whisper.
- * @returns {whisper} The created whisper instance.
+ * @returns {Whisper} The created whisper instance.
  */
 declare const whisper: (message?: string, options?: WhisperOptions) => Whisper;
 
-export { whisper };
+export { whisper as default };

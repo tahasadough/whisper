@@ -20,7 +20,7 @@ var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: tru
 // src/index.ts
 var index_exports = {};
 __export(index_exports, {
-  whisper: () => whisper
+  default: () => index_default
 });
 module.exports = __toCommonJS(index_exports);
 
@@ -178,7 +178,4 @@ var Whisper = class _Whisper {
 
 // src/index.ts
 var whisper = (message, options) => new Whisper(message, options);
-// Annotate the CommonJS export names for ESM import in node:
-0 && (module.exports = {
-  whisper
-});
+var index_default = whisper;

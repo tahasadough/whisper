@@ -152,6 +152,7 @@ var Whisper = class _Whisper {
 
 // src/index.ts
 var whisper = (message, options) => new Whisper(message, options);
+var index_default = whisper;
 export {
-  whisper
+  index_default as default
 };
