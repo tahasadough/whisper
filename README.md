@@ -21,7 +21,7 @@ or anything you like
 ## Getting Started
 
 ```js
-import { whisper } from "@tahasadough/whisper";
+import whisper from "@tahasadough/whisper";
 
 whisper("Hey buddy! Making progress?");
 ```
