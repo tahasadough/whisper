@@ -1,6 +1,6 @@
 {
   "name": "@tahasadough/whisper",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "a lightweight, framework-independent notification library",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
@@ -17,10 +17,6 @@
   ],
   "author": "Taha Sadough",
   "license": "MIT",
-  "dependencies": {
-    "tsup": "^8.3.5",
-    "typescript": "^5.7.3"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/TahaSadough/whisper.git"
@@ -29,5 +25,8 @@
     "url": "https://github.com/TahaSadough/whisper/issues"
   },
   "homepage": "https://github.com/TahaSadough/whisper#readme",
-  "devDependencies": {}
+  "devDependencies": {
+    "tsup": "^8.3.5",
+    "typescript": "^5.7.3"
+  }
 }
