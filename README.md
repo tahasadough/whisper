@@ -1,3 +1,5 @@
+# Whisper
+# a lightweight, framework-independent notification library
 ## Installation
 
 #### With bun
