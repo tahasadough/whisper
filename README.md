@@ -41,7 +41,7 @@ whisper("Hey buddy! Making progress?", {
 // more options will be added
 ```
 
-#### you can alse dismiss one or more whisper base on the id of it
+#### To dismiss one or more whisper you can simply do:
 
 ```js
 whisper().dismiss("whisperID");
