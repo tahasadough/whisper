@@ -1,5 +1,5 @@
 {
-  "name": "whisper",
+  "name": "@tahasadough/whisper",
   "version": "0.0.1",
   "description": "pure notification library",
   "main": "./dist/index.js",
@@ -20,5 +20,14 @@
   "dependencies": {
     "tsup": "^8.3.5",
     "typescript": "^5.7.3"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TahaSadough/whisper.git"
+  },
+  "bugs": {
+    "url": "https://github.com/TahaSadough/whisper/issues"
+  },
+  "homepage": "https://github.com/TahaSadough/whisper#readme",
+  "devDependencies": {}
 }
