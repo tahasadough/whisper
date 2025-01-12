@@ -2,18 +2,18 @@
 
 # a lightweight, framework-independent notification library
 
-## Installation
+## Installation or Update
 
-#### With bun
+#### bun
 
 ```sh
-bun add @tahasadough/whisper
+bun add @tahasadough/whisper@latest
 ```
 
-#### With NPM
+#### npm
 
 ```sh
-npm i @tahasadough/whisper
+npm i @tahasadough/whisper@latest
 ```
 
 or anything you like
@@ -34,15 +34,29 @@ whisper("Hey buddy! Making progress?", {
   duration: 2000,
   id: "whisperID",
   textAlign: "left",
-  type: "ordinary",
   backgroundColor: "#ededed",
   textColor: "#000000",
 });
 // more options will be added
 ```
 
+#### Success whisper:
+```js
+whisper.success("This is a success whisper");
+```
+
+#### Loading whisper:
+```js
+whisper.loading("This is a loading whisper");
+```
+
+#### Error whisper:
+```js
+whisper.error("This is a error whisper")
+```
+
 #### To dismiss one or more whisper you can simply do:
 
 ```js
-whisper().dismiss("whisperID");
+whisper.dismiss("whisperID");
 ```
