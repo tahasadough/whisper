@@ -7,13 +7,13 @@
 #### bun
 
 ```sh
-bun add @tahasadough/whisper@latest
+bun add @codemasters/whisper@latest
 ```
 
 #### npm
 
 ```sh
-npm i @tahasadough/whisper@latest
+npm i @codemasters/whisper@latest
 ```
 
 or anything you like
@@ -21,7 +21,7 @@ or anything you like
 ## Getting Started
 
 ```js
-import whisper from "@tahasadough/whisper";
+import whisper from "@codemasters/whisper";
 
 whisper("Hey buddy! Making progress?");
 ```
@@ -41,18 +41,21 @@ whisper("Hey buddy! Making progress?", {
 ```
 
 #### Success whisper:
+
 ```js
 whisper.success("This is a success whisper");
 ```
 
 #### Loading whisper:
+
 ```js
 whisper.loading("This is a loading whisper");
 ```
 
 #### Error whisper:
+
 ```js
-whisper.error("This is a error whisper")
+whisper.error("This is a error whisper");
 ```
 
 #### To dismiss one or more whisper you can simply do:
