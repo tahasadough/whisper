@@ -1,10 +1,9 @@
 import icon from "./icon";
 import { WhisperOptions } from "./interfaces";
 import { position } from "./types";
-
 export class Whisper {
   private static readonly BASE_STYLES =
-    "display:flex;align-items:center;gap:5px;z-index: 9999;position: fixed;padding: 8.5px 10px;width:fit-content;max-width: 250px;opacity: 0;box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.25);overflow: hidden;font-size: 0.9em;border-radius: 0.8rem;transition: all 0.6s cubic-bezier(0.5, 1.5, 0.3, 1);";
+    "display:flex;align-items:center;gap:5px;z-index: 9999;position: fixed;padding: 0 10px;width:fit-content;max-width: 265px;opacity: 0;min-height:50px;box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.25);overflow: hidden;font-size: 0.9em;border-radius: 0.8rem;transition: all 0.6s cubic-bezier(0.5, 1.5, 0.3, 1);";
   private static readonly POSITION_STYLES: Record<position, string> = {
     "top-left": `${Whisper.BASE_STYLES} top: 15px; left: 15px;`,
     "top-center": `${Whisper.BASE_STYLES} top: 15px; left: 0; right: 0; margin-right: auto; margin-left: auto;`,
