@@ -1,3 +1,11 @@
+import { WhisperOptions } from "./interfaces";
+import { Whisper } from "./whisper";
+
+export type WhisperHandler = (
+  message?: string,
+  options?: WhisperOptions
+) => Whisper;
+
 export type position =
   | "top-left"
   | "top-center"
@@ -8,4 +16,4 @@ export type position =
 
 export type duration = number | "infinite";
 
-export type type = "ordinary" | "success" | "error" | "warning" | "loading";
+export type type = "default" | "success" | "error" | "warning" | "loading";

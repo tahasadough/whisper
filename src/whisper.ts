@@ -4,7 +4,7 @@ import { position } from "./types";
 
 export class Whisper {
   private static readonly BASE_STYLES =
-    "display:flex;align-items:center;gap:3px;z-index: 9999;position: fixed;padding: 18px;max-width: 280px;opacity: 0;box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.25);overflow: hidden;font-size: 0.95em;color: black;background-color: rgb(226, 232, 240);border-radius: 0.7rem;transition: all 0.6s cubic-bezier(0.5, 1.5, 0.3, 1);";
+    "display:flex;align-items:center;gap:5px;z-index: 9999;position: fixed;padding: 0 10px;width:fit-content;max-width: 250px;opacity: 0;box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.25);overflow: hidden;font-size: 0.9em;border-radius: 0.8rem;transition: all 0.6s cubic-bezier(0.5, 1.5, 0.3, 1);";
   private static readonly POSITION_STYLES: Record<position, string> = {
     "top-left": `${Whisper.BASE_STYLES} top: 15px; left: 15px;`,
     "top-center": `${Whisper.BASE_STYLES} top: 15px; left: 0; right: 0; margin-right: auto; margin-left: auto;`,
@@ -31,8 +31,8 @@ export class Whisper {
     position: "top-center",
     textAlign: "left",
     id: null,
-    type: "ordinary",
-    backgroundColor: "#ededed",
+    type: "default",
+    backgroundColor: "#ffffff",
     textColor: "#000000",
   };
   /**
@@ -58,7 +58,7 @@ export class Whisper {
     if (this.#options.id) whisper.classList.add(this.#options.id);
     whisper.innerHTML = `
     <span style="height:100%;display:flex;align-items:center;">
-     ${this.#options.type !== "ordinary" ? icon[this.#options.type!] : ""}
+     ${this.#options.type !== "default" ? icon[this.#options.type!] : ""}
     </span>
      <p style="text-align:${this.#options.textAlign}; color:${
       this.#options.textColor
@@ -128,15 +128,5 @@ export class Whisper {
     this.#options = { ...this._defaultOptions, ...whisperOptions };
     this.#whisperNode = this.#createwhisper(message) as HTMLElement;
     if (this.#options.duration !== "infinite") this.#removewhisper(); // Set to destroy
-  }
-
-  /**
-   * Dismisses whisper with the specified ID.
-   * @public
-   * @param {string} id - The ID of the whisper to dismiss.
-   */
-  dismiss(id: string) {
-    const whispers = document.querySelectorAll<HTMLElement>(`.${id}`);
-    whispers.forEach((whisper) => this.#removeHandler(whisper));
   }
 }

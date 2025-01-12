@@ -49,7 +49,7 @@ var icon_default = Icon;
 
 // src/whisper.ts
 var Whisper = class _Whisper {
-  static BASE_STYLES = "display:flex;align-items:center;gap:3px;z-index: 9999;position: fixed;padding: 18px;max-width: 280px;opacity: 0;box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.25);overflow: hidden;font-size: 0.95em;color: black;background-color: rgb(226, 232, 240);border-radius: 0.7rem;transition: all 0.6s cubic-bezier(0.5, 1.5, 0.3, 1);";
+  static BASE_STYLES = "display:flex;align-items:center;gap:5px;z-index: 9999;position: fixed;padding: 0 10px;width:fit-content;max-width: 250px;opacity: 0;box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.25);overflow: hidden;font-size: 0.9em;border-radius: 0.8rem;transition: all 0.6s cubic-bezier(0.5, 1.5, 0.3, 1);";
   static POSITION_STYLES = {
     "top-left": `${_Whisper.BASE_STYLES} top: 15px; left: 15px;`,
     "top-center": `${_Whisper.BASE_STYLES} top: 15px; left: 0; right: 0; margin-right: auto; margin-left: auto;`,
@@ -75,8 +75,8 @@ var Whisper = class _Whisper {
     position: "top-center",
     textAlign: "left",
     id: null,
-    type: "ordinary",
-    backgroundColor: "#ededed",
+    type: "default",
+    backgroundColor: "#ffffff",
     textColor: "#000000"
   };
   /**
@@ -101,7 +101,7 @@ var Whisper = class _Whisper {
     if (this.#options.id) whisper2.classList.add(this.#options.id);
     whisper2.innerHTML = `
     <span style="height:100%;display:flex;align-items:center;">
-     ${this.#options.type !== "ordinary" ? icon_default[this.#options.type] : ""}
+     ${this.#options.type !== "default" ? icon_default[this.#options.type] : ""}
     </span>
      <p style="text-align:${this.#options.textAlign}; color:${this.#options.textColor}; width:100%;word-break:break-all;">${message}</p> `;
     whisper2.classList.add(_Whisper.POSITION_CLASSES[this.#options.position]);
@@ -165,17 +165,25 @@ var Whisper = class _Whisper {
     this.#whisperNode = this.#createwhisper(message);
     if (this.#options.duration !== "infinite") this.#removewhisper();
   }
-  /**
-   * Dismisses whisper with the specified ID.
-   * @public
-   * @param {string} id - The ID of the whisper to dismiss.
-   */
-  dismiss(id) {
-    const whispers = document.querySelectorAll(`.${id}`);
-    whispers.forEach((whisper2) => this.#removeHandler(whisper2));
-  }
 };
 
 // src/index.ts
-var whisper = (message, options) => new Whisper(message, options);
+var createWhisper = (message, options) => new Whisper(message, options);
+var whisper = Object.assign(
+  (message, options) => createWhisper(message, options),
+  {
+    success: (message, options) => createWhisper(message, { type: "success", ...options }),
+    loading: (message, options) => createWhisper(message, { type: "loading", ...options }),
+    error: (message, options) => createWhisper(message, { type: "error", ...options }),
+    dismiss: (id) => {
+      const whispers = document.querySelectorAll(`.${id}`);
+      whispers.forEach((whisper2) => {
+        whisper2.style.opacity = "0";
+        setTimeout(() => {
+          whisper2.remove();
+        }, 2e3);
+      });
+    }
+  }
+);
 var index_default = whisper;
