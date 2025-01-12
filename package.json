@@ -1,6 +1,6 @@
 {
   "name": "@tahasadough/whisper",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "a lightweight, framework-independent notification library",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
