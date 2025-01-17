@@ -20,7 +20,6 @@ export class Whisper {
     "bottom-center": "whisper-bottom-center",
     "bottom-right": "whisper-bottom-right",
   };
-
   /**
    * @protected
    * whisper's default options
@@ -35,6 +34,11 @@ export class Whisper {
     textColor: "#000000",
   };
   /**
+   * @protected
+   * whisper's message
+   */
+  _message: string;
+  /**
    * @private
    * whisper's options that will overwrite some of default options base on what you want :)
    */
@@ -46,31 +50,54 @@ export class Whisper {
   #whisperNode: HTMLElement;
 
   /**
-   * Creates a whisper element and appends it to the DOM.
+   * Creates a whisper element
    * @private
-   * @param {string} message - The message to display in the notification.
-   * @returns {HTMLElement | void} The created whisper
+   * @returns {HTMLElement} The created whisper
    */
-  #createwhisper(message: string): HTMLElement | void {
-    if (!message.trim()) throw new Error("whisper cannot be empty");
-    const whisper = document.createElement("section") as HTMLElement;
-    if (this.#options.id) whisper.classList.add(this.#options.id);
-    whisper.innerHTML = `
+  #createwhisper() {
+    const whisper: HTMLElement = document.createElement("section");
+    return whisper;
+  }
+
+  /**
+   * @private
+   * adjust whisper's styles and children
+   */
+  #adjustWhisper() {
+    this.#adjustWhisperChildren();
+    this.#adjustWhisperStyles();
+  }
+
+  /**
+   * @private
+   * adjust whisper's styles
+   */
+  #adjustWhisperStyles() {
+    if (this.#options.id) this.#whisperNode.classList.add(this.#options.id);
+    this.#whisperNode.classList.add(
+      Whisper.POSITION_CLASSES[this.#options.position!]
+    );
+    this.#whisperNode.style.cssText =
+      Whisper.POSITION_STYLES[this.#options.position!];
+    this.#whisperNode.style.backgroundColor = this.#options.backgroundColor!;
+    this.#adjustWhisperPosition();
+    requestAnimationFrame(
+      () => (this.#whisperNode.style.cssText += "opacity:1;")
+    );
+  }
+
+  /**
+   * @private
+   * adjust whisper's children
+   */
+  #adjustWhisperChildren() {
+    this.#whisperNode.innerHTML = `
     <span style="height:100%;display:flex;align-items:center;">
      ${this.#options.type !== "default" ? icon[this.#options.type!] : ""}
     </span>
      <p style="text-align:${this.#options.textAlign}; color:${
       this.#options.textColor
-    }; width:100%;word-break:break-all;">${message}</p> `;
-    whisper.classList.add(Whisper.POSITION_CLASSES[this.#options.position!]);
-    whisper.style.cssText = Whisper.POSITION_STYLES[this.#options.position!];
-    whisper.style.backgroundColor = this.#options.backgroundColor!;
-    document.body.prepend(whisper);
-    this.#adjustWhisperPosition();
-    setTimeout(() => {
-      whisper.style.cssText += "opacity:1;";
-    }, 10);
-    return whisper;
+    }; width:100%;word-break:break-all;">${this._message}</p> `;
   }
 
   /**
@@ -94,27 +121,19 @@ export class Whisper {
   }
 
   /**
-   * Handles the removal of a whisper.
-   * @private
-   * @param {HTMLElement} whisper - The whisper to remove.
-   */
-  #removeHandler(whisper: HTMLElement) {
-    whisper.style.cssText += "opacity:0;";
-    setTimeout(() => {
-      whisper.remove();
-      this.#adjustWhisperPosition();
-    }, 200);
-  }
-
-  /**
    * @private
    * Removes the whisper after the specified duration.
    */
   #removewhisper() {
-    setTimeout(
-      () => this.#removeHandler(this.#whisperNode),
-      this.#options.duration as number
-    );
+    const removeHandler = () => {
+      this.#whisperNode.style.cssText += "opacity:0;";
+      setTimeout(() => {
+        this.#whisperNode.remove();
+        this.#adjustWhisperPosition();
+      }, 200);
+    };
+
+    setTimeout(() => removeHandler(), this.#options.duration as number);
   }
 
   /**
@@ -124,8 +143,12 @@ export class Whisper {
    * @param {NotifOptions} notifOptions - The options for the whisper.
    */
   constructor(message: string, whisperOptions: WhisperOptions) {
+    if (!message.trim()) throw new Error("whisper cannot be empty");
+    else this._message = message;
     this.#options = { ...this._defaultOptions, ...whisperOptions };
-    this.#whisperNode = this.#createwhisper(message) as HTMLElement;
+    this.#whisperNode = this.#createwhisper() as HTMLElement;
+    document.body.prepend(this.#whisperNode);
+    this.#adjustWhisper();
     if (this.#options.duration !== "infinite") this.#removewhisper(); // Set to destroy
   }
 }
