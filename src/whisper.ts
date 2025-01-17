@@ -34,10 +34,10 @@ export class Whisper {
     textColor: "#000000",
   };
   /**
-   * @protected
+   * @private
    * whisper's message
    */
-  _message: string;
+  #message: string;
   /**
    * @private
    * whisper's options that will overwrite some of default options base on what you want :)
@@ -97,7 +97,7 @@ export class Whisper {
     </span>
      <p style="text-align:${this.#options.textAlign}; color:${
       this.#options.textColor
-    }; width:100%;word-break:break-all;">${this._message}</p> `;
+    }; width:100%;word-break:break-all;">${this.#message}</p> `;
   }
 
   /**
@@ -144,7 +144,7 @@ export class Whisper {
    */
   constructor(message: string, whisperOptions: WhisperOptions) {
     if (!message.trim()) throw new Error("whisper cannot be empty");
-    else this._message = message;
+    else this.#message = message;
     this.#options = { ...this._defaultOptions, ...whisperOptions };
     this.#whisperNode = this.#createwhisper() as HTMLElement;
     document.body.prepend(this.#whisperNode);
