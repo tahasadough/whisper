@@ -54,7 +54,7 @@ export class Whisper {
    * @private
    * @returns {HTMLElement} The created whisper
    */
-  #createwhisper() {
+  #create() {
     const whisper: HTMLElement = document.createElement("section");
     return whisper;
   }
@@ -63,16 +63,17 @@ export class Whisper {
    * @private
    * adjust whisper's styles and children
    */
-  #adjustWhisper() {
-    this.#adjustWhisperChildren();
-    this.#adjustWhisperStyles();
+  #adjustments() {
+    this.#adjustChildren();
+    this.#adjustStyles();
+    this.#adjustPosition();
   }
 
   /**
    * @private
    * adjust whisper's styles
    */
-  #adjustWhisperStyles() {
+  #adjustStyles() {
     if (this.#options.id) this.#whisperNode.classList.add(this.#options.id);
     this.#whisperNode.classList.add(
       Whisper.POSITION_CLASSES[this.#options.position!]
@@ -80,7 +81,6 @@ export class Whisper {
     this.#whisperNode.style.cssText =
       Whisper.POSITION_STYLES[this.#options.position!];
     this.#whisperNode.style.backgroundColor = this.#options.backgroundColor!;
-    this.#adjustWhisperPosition();
     requestAnimationFrame(
       () => (this.#whisperNode.style.cssText += "opacity:1;")
     );
@@ -90,7 +90,7 @@ export class Whisper {
    * @private
    * adjust whisper's children
    */
-  #adjustWhisperChildren() {
+  #adjustChildren() {
     this.#whisperNode.innerHTML = `
     <span style="height:100%;display:flex;align-items:center;">
      ${this.#options.type !== "default" ? icon[this.#options.type!] : ""}
@@ -104,7 +104,7 @@ export class Whisper {
    * @private
    * Adjusts the position of whisper
    */
-  #adjustWhisperPosition() {
+  #adjustPosition() {
     const positionClass = Whisper.POSITION_CLASSES[this.#options.position!];
     const whispers = document.querySelectorAll<HTMLElement>(
       `.${positionClass}`
@@ -124,12 +124,12 @@ export class Whisper {
    * @private
    * Removes the whisper after the specified duration.
    */
-  #removewhisper() {
+  #remove() {
     const removeHandler = () => {
       this.#whisperNode.style.cssText += "opacity:0;";
       setTimeout(() => {
         this.#whisperNode.remove();
-        this.#adjustWhisperPosition();
+        this.#adjustPosition();
       }, 200);
     };
 
@@ -146,9 +146,9 @@ export class Whisper {
     if (!message.trim()) throw new Error("whisper cannot be empty");
     else this.#message = message;
     this.#options = { ...this._defaultOptions, ...whisperOptions };
-    this.#whisperNode = this.#createwhisper() as HTMLElement;
+    this.#whisperNode = this.#create() as HTMLElement;
     document.body.prepend(this.#whisperNode);
-    this.#adjustWhisper();
-    if (this.#options.duration !== "infinite") this.#removewhisper(); // Set to destroy
+    this.#adjustments();
+    if (this.#options.duration !== "infinite") this.#remove(); // Set to destroy
   }
 }
