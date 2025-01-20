@@ -19,12 +19,12 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/TahaSadough/whisper.git"
+    "url": "git+https://github.com/tahasadough/whisper.git"
   },
   "bugs": {
-    "url": "https://github.com/TahaSadough/whisper/issues"
+    "url": "https://github.com/tahasadough/whisper/issues"
   },
-  "homepage": "https://github.com/TahaSadough/whisper#readme",
+  "homepage": "https://github.com/tahasadough/whisper#readme",
   "devDependencies": {
     "tsup": "^8.3.5",
     "typescript": "^5.7.3"
