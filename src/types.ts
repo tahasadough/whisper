@@ -1,5 +1,5 @@
-import { WhisperOptions } from "./interfaces";
-import { Whisper } from "./whisper";
+import { WhisperOptions } from './interfaces';
+import { Whisper } from './whisper';
 
 export type WhisperHandler = (
   message?: string,
@@ -7,13 +7,13 @@ export type WhisperHandler = (
 ) => Whisper;
 
 export type position =
-  | "top-left"
-  | "top-center"
-  | "top-right"
-  | "bottom-left"
-  | "bottom-center"
-  | "bottom-right";
+  | 'top-left'
+  | 'top-center'
+  | 'top-right'
+  | 'bottom-left'
+  | 'bottom-center'
+  | 'bottom-right';
 
-export type duration = number | "infinite";
+export type duration = number | 'infinite';
 
-export type type = "default" | "success" | "error" | "warning" | "loading";
+export type type = 'default' | 'success' | 'error' | 'warning' | 'loading';

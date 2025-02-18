@@ -1,24 +1,24 @@
-import icon from "./icon";
-import { WhisperOptions } from "./interfaces";
-import { position } from "./types";
+import icon from './icon';
+import { WhisperOptions } from './interfaces';
+import { position } from './types';
 export class Whisper {
   private static readonly BASE_STYLES =
-    "display:flex;align-items:center;gap:5px;z-index: 9999;position: fixed;padding: 0 10px;width:fit-content;max-width: 265px;opacity: 0;min-height:50px;box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.25);overflow: hidden;font-size: 0.9em;border-radius: 0.8rem;transition: all 0.6s cubic-bezier(0.5, 1.5, 0.3, 1);";
+    'display:flex;align-items:center;gap:5px;z-index: 9999;position: fixed;padding: 0 10px;width:fit-content;max-width: 265px;opacity: 0;min-height:50px;box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.25);overflow: hidden;font-size: 0.9em;border-radius: 0.8rem;transition: all 0.6s cubic-bezier(0.5, 1.5, 0.3, 1);';
   private static readonly POSITION_STYLES: Record<position, string> = {
-    "top-left": `${Whisper.BASE_STYLES} top: 15px; left: 15px;`,
-    "top-center": `${Whisper.BASE_STYLES} top: 15px; left: 0; right: 0; margin-right: auto; margin-left: auto;`,
-    "top-right": `${Whisper.BASE_STYLES} top: 15px; right: 15px;`,
-    "bottom-left": `${Whisper.BASE_STYLES} bottom: 15px; left: 15px;`,
-    "bottom-center": `${Whisper.BASE_STYLES} bottom: 15px; left: 0; right: 0; margin-right: auto; margin-left: auto;`,
-    "bottom-right": `${Whisper.BASE_STYLES} bottom: 15px; right: 15px;`,
+    'top-left': `${Whisper.BASE_STYLES} top: 15px; left: 15px;`,
+    'top-center': `${Whisper.BASE_STYLES} top: 15px; left: 0; right: 0; margin-right: auto; margin-left: auto;`,
+    'top-right': `${Whisper.BASE_STYLES} top: 15px; right: 15px;`,
+    'bottom-left': `${Whisper.BASE_STYLES} bottom: 15px; left: 15px;`,
+    'bottom-center': `${Whisper.BASE_STYLES} bottom: 15px; left: 0; right: 0; margin-right: auto; margin-left: auto;`,
+    'bottom-right': `${Whisper.BASE_STYLES} bottom: 15px; right: 15px;`,
   };
   private static readonly POSITION_CLASSES: Record<position, string> = {
-    "top-left": "whisper-top-left",
-    "top-center": "whisper-top-center",
-    "top-right": "whisper-top-right",
-    "bottom-left": "whisper-bottom-left",
-    "bottom-center": "whisper-bottom-center",
-    "bottom-right": "whisper-bottom-right",
+    'top-left': 'whisper-top-left',
+    'top-center': 'whisper-top-center',
+    'top-right': 'whisper-top-right',
+    'bottom-left': 'whisper-bottom-left',
+    'bottom-center': 'whisper-bottom-center',
+    'bottom-right': 'whisper-bottom-right',
   };
   /**
    * @protected
@@ -26,12 +26,12 @@ export class Whisper {
    */
   _defaultOptions: WhisperOptions = {
     duration: 2000,
-    position: "top-center",
-    textAlign: "left",
+    position: 'top-center',
+    textAlign: 'left',
     id: null,
-    type: "default",
-    backgroundColor: "#ffffff",
-    textColor: "#000000",
+    type: 'default',
+    backgroundColor: '#f0f0f0',
+    textColor: '#000000',
   };
   /**
    * @private
@@ -55,7 +55,7 @@ export class Whisper {
    * @returns {HTMLElement} The created whisper
    */
   #create() {
-    const whisper: HTMLElement = document.createElement("section");
+    const whisper: HTMLElement = document.createElement('section');
     return whisper;
   }
 
@@ -82,7 +82,7 @@ export class Whisper {
       Whisper.POSITION_STYLES[this.#options.position!];
     this.#whisperNode.style.backgroundColor = this.#options.backgroundColor!;
     requestAnimationFrame(
-      () => (this.#whisperNode.style.cssText += "opacity:1;")
+      () => (this.#whisperNode.style.cssText += 'opacity:1;')
     );
   }
 
@@ -93,7 +93,7 @@ export class Whisper {
   #adjustChildren() {
     this.#whisperNode.innerHTML = `
     <span style="height:100%;display:flex;align-items:center;">
-     ${this.#options.type !== "default" ? icon[this.#options.type!] : ""}
+     ${this.#options.type !== 'default' ? icon[this.#options.type!] : ''}
     </span>
      <p style="text-align:${this.#options.textAlign}; color:${
       this.#options.textColor
@@ -109,7 +109,7 @@ export class Whisper {
     const whispers = document.querySelectorAll<HTMLElement>(
       `.${positionClass}`
     );
-    const notifIsOnTop = positionClass?.includes("top");
+    const notifIsOnTop = positionClass?.includes('top');
 
     let totalHeight = 0;
     whispers.forEach((whisper) => {
@@ -126,7 +126,7 @@ export class Whisper {
    */
   #remove() {
     const removeHandler = () => {
-      this.#whisperNode.style.cssText += "opacity:0;";
+      this.#whisperNode.style.cssText += 'opacity:0;';
       setTimeout(() => {
         this.#whisperNode.remove();
         this.#adjustPosition();
@@ -143,12 +143,12 @@ export class Whisper {
    * @param {NotifOptions} notifOptions - The options for the whisper.
    */
   constructor(message: string, whisperOptions: WhisperOptions) {
-    if (!message.trim()) throw new Error("whisper cannot be empty");
+    if (!message.trim()) throw new Error('whisper cannot be empty');
     else this.#message = message;
     this.#options = { ...this._defaultOptions, ...whisperOptions };
     this.#whisperNode = this.#create() as HTMLElement;
     document.body.prepend(this.#whisperNode);
     this.#adjustments();
-    if (this.#options.duration !== "infinite") this.#remove(); // Set to destroy
+    if (this.#options.duration !== 'infinite') this.#remove(); // Set to destroy
   }
 }

@@ -1,5 +1,5 @@
-import type { WhisperHandler, duration, position, type } from "./types";
-import { Whisper } from "./whisper";
+import type { WhisperHandler, duration, position, type } from './types';
+import { Whisper } from './whisper';
 
 export interface WhisperMap {
   (message?: string, options?: WhisperOptions): Whisper;
@@ -12,7 +12,7 @@ export interface WhisperMap {
 export interface WhisperOptions {
   duration?: duration;
   position?: position;
-  textAlign?: "left" | "center" | "right";
+  textAlign?: 'left' | 'center' | 'right';
   id?: string | null;
   type?: type;
   backgroundColor?: string;
