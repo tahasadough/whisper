@@ -1,6 +1,6 @@
 {
   "name": "@codemasters/whisper",
-  "version": "1.5.5",
+  "version": "1.5.6",
   "description": "a lightweight, framework-independent notification library",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
